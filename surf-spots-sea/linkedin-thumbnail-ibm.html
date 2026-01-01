@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Thumbnail - IBM Bob Southeast Asia Surf App</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f4f4f4;
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .thumbnail {
+            background: #0f62fe;
+            border-radius: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .instructions {
+            background: white;
+            padding: 32px;
+            margin-top: 32px;
+            border-left: 4px solid #0f62fe;
+        }
+        .instructions h2 {
+            margin-top: 0;
+            color: #161616;
+            font-weight: 600;
+        }
+        .instructions ol, .instructions ul {
+            line-height: 1.8;
+            color: #525252;
+        }
+        .instructions code {
+            background: #f4f4f4;
+            padding: 2px 8px;
+            border-radius: 2px;
+            font-family: 'IBM Plex Mono', 'Courier New', monospace;
+            color: #0f62fe;
+        }
+        button {
+            background: #0f62fe;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 16px;
+            font-family: 'IBM Plex Sans', sans-serif;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: #0353e9;
+        }
+        .color-palette {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        .color-swatch {
+            width: 80px;
+            height: 80px;
+            border-radius: 2px;
+            display: flex;
+            align-items: flex-end;
+            padding: 8px;
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <svg class="thumbnail" width="1200" height="627" viewBox="0 0 1200 627" xmlns="http://www.w3.org/2000/svg">
+            <!-- IBM Design System Colors -->
+            <defs>
+                <!-- IBM Blue 60 Background -->
+                <linearGradient id="ibmBlueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#0f62fe;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#0043ce;stop-opacity:1" />
+                </linearGradient>
+                
+                <!-- IBM Grid Pattern (8px grid) -->
+                <pattern id="ibmGrid" width="8" height="8" patternUnits="userSpaceOnUse">
+                    <rect width="8" height="8" fill="none"/>
+                    <circle cx="4" cy="4" r="0.5" fill="rgba(255,255,255,0.1)"/>
+                </pattern>
+            </defs>
+            
+            <!-- Background - IBM Blue 60 -->
+            <rect width="1200" height="627" fill="url(#ibmBlueGradient)"/>
+            <rect width="1200" height="627" fill="url(#ibmGrid)"/>
+            
+            <!-- IBM 8-Bar Logo (Top Left) -->
+            <g transform="translate(48, 48)">
+                <rect x="0" y="0" width="4" height="32" fill="white"/>
+                <rect x="8" y="0" width="4" height="32" fill="white"/>
+                <rect x="16" y="0" width="4" height="32" fill="white"/>
+                <rect x="24" y="0" width="4" height="32" fill="white"/>
+                <rect x="32" y="0" width="4" height="32" fill="white"/>
+                <rect x="40" y="0" width="4" height="32" fill="white"/>
+                <rect x="48" y="0" width="4" height="32" fill="white"/>
+                <rect x="56" y="0" width="4" height="32" fill="white"/>
+                <text x="72" y="24" font-family="'IBM Plex Sans', sans-serif" font-size="24" font-weight="700" fill="white">IBM</text>
+            </g>
+            
+            <!-- Main Content Area (Following 8px grid) -->
+            <g transform="translate(48, 160)">
+                <!-- Title - IBM Plex Sans -->
+                <text x="0" y="0" font-family="'IBM Plex Sans', sans-serif" font-size="64" font-weight="700" fill="white" letter-spacing="-0.5">
+                    Building a Southeast Asia
+                </text>
+                <text x="0" y="80" font-family="'IBM Plex Sans', sans-serif" font-size="64" font-weight="700" fill="white" letter-spacing="-0.5">
+                    Surf App with IBM Bob
+                </text>
+                
+                <!-- Subtitle -->
+                <text x="0" y="144" font-family="'IBM Plex Sans', sans-serif" font-size="28" font-weight="400" fill="rgba(255,255,255,0.9)">
+                    From idea to production in 30 minutes
+                </text>
+            </g>
+            
+            <!-- Stats Card (IBM Carbon Design) -->
+            <g transform="translate(48, 400)">
+                <!-- Card Background -->
+                <rect width="320" height="160" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                
+                <!-- Time Stat -->
+                <text x="24" y="48" font-family="'IBM Plex Sans', sans-serif" font-size="56" font-weight="700" fill="white">30</text>
+                <text x="24" y="80" font-family="'IBM Plex Sans', sans-serif" font-size="20" font-weight="400" fill="rgba(255,255,255,0.8)">minutes</text>
+                
+                <!-- Divider -->
+                <line x1="24" y1="100" x2="296" y2="100" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+                
+                <!-- Description -->
+                <text x="24" y="130" font-family="'IBM Plex Sans', sans-serif" font-size="16" font-weight="400" fill="rgba(255,255,255,0.9)">
+                    Complete development time
+                </text>
+            </g>
+            
+            <!-- Tech Stack Tags (IBM Carbon Tags) -->
+            <g transform="translate(400, 420)">
+                <!-- Vue.js Tag -->
+                <g transform="translate(0, 0)">
+                    <rect width="100" height="40" rx="2" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                    <text x="50" y="26" font-family="'IBM Plex Sans', sans-serif" font-size="16" font-weight="600" fill="white" text-anchor="middle">Vue.js</text>
+                </g>
+                
+                <!-- Mapbox Tag -->
+                <g transform="translate(116, 0)">
+                    <rect width="110" height="40" rx="2" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                    <text x="55" y="26" font-family="'IBM Plex Sans', sans-serif" font-size="16" font-weight="600" fill="white" text-anchor="middle">Mapbox</text>
+                </g>
+                
+                <!-- Netlify Tag -->
+                <g transform="translate(242, 0)">
+                    <rect width="100" height="40" rx="2" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+                    <text x="50" y="26" font-family="'IBM Plex Sans', sans-serif" font-size="16" font-weight="600" fill="white" text-anchor="middle">Netlify</text>
+                </g>
+                
+                <!-- AI Tag (Highlighted) -->
+                <g transform="translate(358, 0)">
+                    <rect width="120" height="40" rx="2" fill="#42be65" stroke="none"/>
+                    <text x="60" y="26" font-family="'IBM Plex Sans', sans-serif" font-size="16" font-weight="600" fill="#161616" text-anchor="middle">AI-Powered</text>
+                </g>
+            </g>
+            
+            <!-- Wave Icon (Simplified) -->
+            <g transform="translate(900, 200)">
+                <path d="M 0 40 Q 20 20 40 40 T 80 40 T 120 40 T 160 40" 
+                      stroke="rgba(255,255,255,0.3)" 
+                      stroke-width="3" 
+                      fill="none" 
+                      stroke-linecap="round"/>
+                <path d="M 0 60 Q 20 40 40 60 T 80 60 T 120 60 T 160 60" 
+                      stroke="rgba(255,255,255,0.2)" 
+                      stroke-width="3" 
+                      fill="none" 
+                      stroke-linecap="round"/>
+                <path d="M 0 80 Q 20 60 40 80 T 80 80 T 120 80 T 160 80" 
+                      stroke="rgba(255,255,255,0.1)" 
+                      stroke-width="3" 
+                      fill="none" 
+                      stroke-linecap="round"/>
+            </g>
+            
+            <!-- Location Pin Icon -->
+            <g transform="translate(950, 350)">
+                <circle cx="0" cy="0" r="24" fill="rgba(255,255,255,0.2)"/>
+                <path d="M 0 -12 L -8 4 L 0 0 L 8 4 Z" fill="white"/>
+                <circle cx="0" cy="-4" r="4" fill="#0f62fe"/>
+            </g>
+            
+            <!-- Southeast Asia Label -->
+            <g transform="translate(850, 420)">
+                <text x="0" y="0" font-family="'IBM Plex Sans', sans-serif" font-size="18" font-weight="600" fill="white">
+                    Southeast Asia
+                </text>
+                <text x="0" y="28" font-family="'IBM Plex Sans', sans-serif" font-size="14" font-weight="400" fill="rgba(255,255,255,0.8)">
+                    7 Surf Spots
+                </text>
+                <text x="0" y="52" font-family="'IBM Plex Sans', sans-serif" font-size="14" font-weight="400" fill="rgba(255,255,255,0.8)">
+                    Real-time Data
+                </text>
+            </g>
+            
+            <!-- Footer -->
+            <g transform="translate(48, 580)">
+                <text x="0" y="0" font-family="'IBM Plex Sans', sans-serif" font-size="14" font-weight="400" fill="rgba(255,255,255,0.7)">
+                    #IBMBob #AI #WebDevelopment #VueJS #SurfApp
+                </text>
+            </g>
+        </svg>
+        
+        <div class="instructions">
+            <h2>📸 IBM Design System Thumbnail</h2>
+            
+            <h3>Design Specifications</h3>
+            <ul>
+                <li><strong>Size:</strong> 1200 x 627 pixels (LinkedIn optimized)</li>
+                <li><strong>Typography:</strong> IBM Plex Sans (IBM Design System)</li>
+                <li><strong>Colors:</strong> IBM Blue 60 (#0f62fe), IBM Blue 70 (#0043ce)</li>
+                <li><strong>Grid:</strong> 8px grid system (IBM Carbon Design)</li>
+                <li><strong>Components:</strong> IBM 8-bar logo, Carbon tags, Carbon cards</li>
+            </ul>
+            
+            <h3>IBM Color Palette Used</h3>
+            <div class="color-palette">
+                <div class="color-swatch" style="background: #0f62fe;">Blue 60</div>
+                <div class="color-swatch" style="background: #0043ce;">Blue 70</div>
+                <div class="color-swatch" style="background: #42be65;">Green 50</div>
+                <div class="color-swatch" style="background: #ffffff; color: #161616; border: 1px solid #e0e0e0;">White</div>
+            </div>
+            
+            <h3>How to Download</h3>
+            <ol>
+                <li>Click the button below to download as PNG (1200x627px)</li>
+                <li>Or right-click on the thumbnail and select "Save image as..."</li>
+                <li>Upload to LinkedIn when creating your article</li>
+            </ol>
+            
+            <h3>Key Features</h3>
+            <ul>
+                <li>✅ IBM 8-bar logo (official branding)</li>
+                <li>✅ IBM Plex Sans typography</li>
+                <li>✅ IBM Blue color palette</li>
+                <li>✅ 8px grid system alignment</li>
+                <li>✅ Carbon Design System components</li>
+                <li>✅ 30 minutes development time highlighted</li>
+                <li>✅ Southeast Asia surf app context</li>
+                <li>✅ Tech stack tags (Vue.js, Mapbox, Netlify, AI)</li>
+            </ul>
+            
+            <button onclick="downloadAsPNG()">⬇️ Download as PNG (1200x627)</button>
+        </div>
+    </div>
+    
+    <script>
+        function downloadAsPNG() {
+            const svg = document.querySelector('.thumbnail');
+            const canvas = document.createElement('canvas');
+            canvas.width = 1200;
+            canvas.height = 627;
+            const ctx = canvas.getContext('2d');
+            
+            const data = new XMLSerializer().serializeToString(svg);
+            const blob = new Blob([data], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+            
+            const img = new Image();
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0);
+                canvas.toBlob(function(blob) {
+                    const link = document.createElement('a');
+                    link.download = 'linkedin-thumbnail-ibm-bob-surf-app.png';
+                    link.href = URL.createObjectURL(blob);
+                    link.click();
+                    URL.revokeObjectURL(url);
+                });
+            };
+            img.src = url;
+        }
+    </script>
+</body>
+</html>

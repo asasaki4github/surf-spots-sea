@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Thumbnail - Project Bob</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .thumbnail {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        .instructions {
+            background: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .instructions h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .instructions ol {
+            line-height: 1.8;
+        }
+        .instructions code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        button {
+            background: #0077b5;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background: #006399;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <svg class="thumbnail" width="1200" height="627" viewBox="0 0 1200 627" xmlns="http://www.w3.org/2000/svg">
+            <!-- Background Gradient -->
+            <defs>
+                <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+                    <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+                </linearGradient>
+                
+                <!-- Subtle Pattern -->
+                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.1)"/>
+                </pattern>
+            </defs>
+            
+            <!-- Background -->
+            <rect width="1200" height="627" fill="url(#bgGradient)"/>
+            <rect width="1200" height="627" fill="url(#grid)"/>
+            
+            <!-- Left Section: Icon & Stats -->
+            <g transform="translate(80, 150)">
+                <!-- AI Robot Icon -->
+                <g transform="translate(0, 0)">
+                    <circle cx="60" cy="60" r="50" fill="rgba(255,255,255,0.2)"/>
+                    <circle cx="60" cy="60" r="40" fill="white"/>
+                    <circle cx="50" cy="50" r="5" fill="#667eea"/>
+                    <circle cx="70" cy="50" r="5" fill="#667eea"/>
+                    <path d="M 45 70 Q 60 80 75 70" stroke="#667eea" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <rect x="40" y="30" width="40" height="5" rx="2" fill="#667eea" opacity="0.3"/>
+                </g>
+                
+                <!-- Stats Box -->
+                <g transform="translate(0, 150)">
+                    <rect width="200" height="120" rx="8" fill="rgba(255,255,255,0.15)"/>
+                    <text x="100" y="35" font-size="48" font-weight="bold" fill="white" text-anchor="middle">3</text>
+                    <text x="100" y="60" font-size="20" fill="rgba(255,255,255,0.9)" text-anchor="middle">HOURS</text>
+                    <text x="100" y="90" font-size="32" font-weight="bold" fill="#FFD700" text-anchor="middle">85.7%</text>
+                    <text x="100" y="110" font-size="16" fill="rgba(255,255,255,0.9)" text-anchor="middle">Time Saved</text>
+                </g>
+            </g>
+            
+            <!-- Center Section: Main Title -->
+            <g transform="translate(350, 180)">
+                <text x="0" y="0" font-size="56" font-weight="bold" fill="white" letter-spacing="-1">
+                    How I Built a
+                </text>
+                <text x="0" y="70" font-size="56" font-weight="bold" fill="white" letter-spacing="-1">
+                    Production-Ready
+                </text>
+                <text x="0" y="140" font-size="56" font-weight="bold" fill="white" letter-spacing="-1">
+                    Web App in 3 Hours
+                </text>
+                
+                <!-- Subtitle -->
+                <text x="0" y="200" font-size="24" fill="rgba(255,255,255,0.9)" font-weight="300">
+                    with IBM's Project Bob
+                </text>
+            </g>
+            
+            <!-- Bottom Section: Tech Stack Icons -->
+            <g transform="translate(350, 480)">
+                <!-- Vue.js -->
+                <g transform="translate(0, 0)">
+                    <circle cx="30" cy="30" r="28" fill="rgba(255,255,255,0.2)"/>
+                    <text x="30" y="40" font-size="24" fill="white" text-anchor="middle" font-weight="bold">V</text>
+                    <text x="30" y="70" font-size="12" fill="rgba(255,255,255,0.8)" text-anchor="middle">Vue.js</text>
+                </g>
+                
+                <!-- AWS -->
+                <g transform="translate(120, 0)">
+                    <circle cx="30" cy="30" r="28" fill="rgba(255,255,255,0.2)"/>
+                    <text x="30" y="40" font-size="20" fill="white" text-anchor="middle" font-weight="bold">AWS</text>
+                    <text x="30" y="70" font-size="12" fill="rgba(255,255,255,0.8)" text-anchor="middle">Cloud</text>
+                </g>
+                
+                <!-- Serverless -->
+                <g transform="translate(240, 0)">
+                    <circle cx="30" cy="30" r="28" fill="rgba(255,255,255,0.2)"/>
+                    <text x="30" y="40" font-size="24" fill="white" text-anchor="middle" font-weight="bold">λ</text>
+                    <text x="30" y="70" font-size="12" fill="rgba(255,255,255,0.8)" text-anchor="middle">Serverless</text>
+                </g>
+                
+                <!-- AI -->
+                <g transform="translate(360, 0)">
+                    <circle cx="30" cy="30" r="28" fill="rgba(255,255,255,0.2)"/>
+                    <text x="30" y="40" font-size="24" fill="white" text-anchor="middle" font-weight="bold">AI</text>
+                    <text x="30" y="70" font-size="12" fill="rgba(255,255,255,0.8)" text-anchor="middle">Powered</text>
+                </g>
+            </g>
+            
+            <!-- IBM Logo Area (Top Right) -->
+            <g transform="translate(1000, 50)">
+                <rect width="150" height="50" rx="4" fill="rgba(255,255,255,0.2)"/>
+                <text x="75" y="33" font-size="28" font-weight="bold" fill="white" text-anchor="middle">IBM</text>
+            </g>
+            
+            <!-- Author Info (Bottom Right) -->
+            <g transform="translate(850, 550)">
+                <text x="0" y="0" font-size="16" fill="rgba(255,255,255,0.9)" font-weight="500">
+                    Enterprise Developer @ IBM
+                </text>
+                <text x="0" y="25" font-size="14" fill="rgba(255,255,255,0.7)">
+                    #AI #SoftwareDevelopment #ProjectBob
+                </text>
+            </g>
+        </svg>
+        
+        <div class="instructions">
+            <h2>📸 How to Use This Thumbnail</h2>
+            <ol>
+                <li>Right-click on the image above and select <code>Save image as...</code></li>
+                <li>Save as <code>linkedin-thumbnail.png</code> (browser will convert SVG to PNG)</li>
+                <li>Or use the button below to download as PNG (1200x627px - LinkedIn optimized)</li>
+                <li>Upload to LinkedIn when creating your article post</li>
+            </ol>
+            
+            <h3>Alternative: Screenshot Method</h3>
+            <ol>
+                <li>Take a screenshot of the thumbnail above</li>
+                <li>Crop to 1200x627 pixels using any image editor</li>
+                <li>Save as PNG or JPG</li>
+            </ol>
+            
+            <h3>Design Features</h3>
+            <ul>
+                <li>✅ LinkedIn recommended size: 1200x627px</li>
+                <li>✅ Professional gradient background (Purple/Blue)</li>
+                <li>✅ Clear, readable text at all sizes</li>
+                <li>✅ Key metrics highlighted (3 hours, 85.7% savings)</li>
+                <li>✅ Tech stack icons for visual interest</li>
+                <li>✅ IBM branding included</li>
+            </ul>
+            
+            <button onclick="downloadAsPNG()">⬇️ Download as PNG (1200x627)</button>
+        </div>
+    </div>
+    
+    <script>
+        function downloadAsPNG() {
+            const svg = document.querySelector('.thumbnail');
+            const canvas = document.createElement('canvas');
+            canvas.width = 1200;
+            canvas.height = 627;
+            const ctx = canvas.getContext('2d');
+            
+            const data = new XMLSerializer().serializeToString(svg);
+            const blob = new Blob([data], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+            
+            const img = new Image();
+            img.onload = function() {
+                ctx.drawImage(img, 0, 0);
+                canvas.toBlob(function(blob) {
+                    const link = document.createElement('a');
+                    link.download = 'linkedin-thumbnail-project-bob.png';
+                    link.href = URL.createObjectURL(blob);
+                    link.click();
+                    URL.revokeObjectURL(url);
+                });
+            };
+            img.src = url;
+        }
+    </script>
+</body>
+</html>

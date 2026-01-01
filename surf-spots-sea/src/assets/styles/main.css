@@ -1,0 +1,177 @@
+/* IBM Plex Fonts */
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Light Mode Design - High Visibility */
+@layer base {
+  body {
+    @apply font-sans antialiased;
+    font-family: 'IBM Plex Sans', system-ui, sans-serif;
+    background-color: #ffffff;
+    color: #161616;
+  }
+
+  * {
+    @apply box-border;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold;
+  }
+}
+
+/* カスタムコンポーネント */
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 bg-ocean-500 text-white rounded-lg font-medium hover:bg-ocean-600 transition-colors;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 bg-gray-200 text-gray-800 rounded-lg font-medium hover:bg-gray-300 transition-colors;
+  }
+
+  .card {
+    @apply bg-white rounded-lg shadow-md p-4;
+  }
+}
+
+/* Leafletのカスタムスタイル */
+.leaflet-popup {
+  max-width: 400px;
+}
+
+.leaflet-popup-content-wrapper {
+  padding: 0;
+  border-radius: 0.5rem;
+}
+
+.leaflet-popup-close-button {
+  font-size: 1.5rem;
+  padding: 0.5rem;
+}
+
+/* カスタムマーカーのスタイル (IBM Design) */
+.custom-surf-marker,
+.custom-golf-marker {
+  background: transparent;
+  border: none;
+}
+
+.custom-surf-marker:hover > div,
+.custom-golf-marker:hover > div {
+  transform: scale(1.15);
+  box-shadow: 0 6px 16px rgba(15, 98, 254, 0.5);
+}
+
+.custom-golf-marker:hover > div {
+  box-shadow: 0 6px 16px rgba(36, 161, 72, 0.5);
+}
+
+/* カスタムツールチップ (IBM Design) */
+.leaflet-tooltip {
+  pointer-events: auto !important; /* ツールチップ内でマウス操作を有効化 */
+}
+
+.custom-tooltip {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  max-height: calc(100vh - 160px) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  pointer-events: auto !important; /* スクロール可能にする */
+}
+
+.custom-tooltip .leaflet-tooltip-content {
+  margin: 0 !important;
+  padding: 0 !important;
+  max-height: calc(100vh - 160px) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  pointer-events: auto !important;
+}
+
+/* ツールチップのスクロールバー */
+.custom-tooltip::-webkit-scrollbar,
+.custom-tooltip .leaflet-tooltip-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-tooltip::-webkit-scrollbar-track,
+.custom-tooltip .leaflet-tooltip-content::-webkit-scrollbar-track {
+  background: #f4f4f4;
+  border-radius: 4px;
+}
+
+.custom-tooltip::-webkit-scrollbar-thumb,
+.custom-tooltip .leaflet-tooltip-content::-webkit-scrollbar-thumb {
+  background: #0f62fe;
+  border-radius: 4px;
+}
+
+.custom-tooltip::-webkit-scrollbar-thumb:hover,
+.custom-tooltip .leaflet-tooltip-content::-webkit-scrollbar-thumb:hover {
+  background: #0043ce;
+}
+
+/* Firefox用のスクロールバースタイル */
+.custom-tooltip,
+.custom-tooltip .leaflet-tooltip-content {
+  scrollbar-width: thin;
+  scrollbar-color: #0f62fe #f4f4f4;
+}
+
+/* カスタムマーカーのアニメーション */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.marker-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* スクロールバーのカスタマイズ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-400 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
+}
+
+/* モバイル対応 */
+@media (max-width: 640px) {
+  .leaflet-top.leaflet-right {
+    top: 10px;
+    right: 10px;
+  }
+
+  .leaflet-bottom.leaflet-left {
+    bottom: 10px;
+    left: 10px;
+  }
+  
+  .leaflet-control-zoom {
+    margin: 10px;
+  }
+}
+
+/* Made with Bob */

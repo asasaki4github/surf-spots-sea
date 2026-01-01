@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEA Surf Spots - デモ版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.0.0/mapbox-gl.js'></script>
+    <style>
+        body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        #map { position: absolute; top: 64px; bottom: 0; width: 100%; }
+        .popup-content { max-width: 400px; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- ヘッダー -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-blue-600 to-blue-700 shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 2C6.5 2 3 4 3 7c0 2 1.5 4 3 5.5C7.5 14 9 16 10 18c1-2 2.5-4 4-5.5C15.5 11 17 9 17 7c0-3-3.5-5-7-5z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-white">SEA Surf Spots</h1>
+                        <p class="text-xs text-blue-100">東南アジア波情報 - デモ版</p>
+                    </div>
+                </div>
+                <button onclick="showInfo()" class="p-2 text-white hover:bg-blue-500 rounded-lg transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 地図 -->
+    <div id="map"></div>
+
+    <!-- 情報モーダル -->
+    <div id="infoModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full max-h-[80vh] overflow-y-auto">
+            <div class="sticky top-0 bg-blue-600 text-white px-6 py-4 flex items-center justify-between">
+                <h2 class="text-lg font-bold">デモ版について</h2>
+                <button onclick="hideInfo()" class="text-white hover:text-gray-200">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="p-6 space-y-4">
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">⚠️ これはデモ版です</h3>
+                    <p class="text-sm text-gray-600">
+                        このHTMLファイルは、Node.jsがインストールされていない環境でもアプリの動作を確認できるデモ版です。
+                        実際の波情報はモックデータ（ダミーデータ）を使用しています。
+                    </p>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">対象スポット</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Nongsa Beach (バタム島)</li>
+                        <li>• Trikora Beach (ビンタン島)</li>
+                        <li>• Desaru Beach (ジョホール)</li>
+                        <li>• Tioman Island (ティオマン島)</li>
+                        <li>• Parai Beach (バンカ島)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-semibold text-gray-900 mb-2">完全版の実行方法</h3>
+                    <p class="text-sm text-gray-600 mb-2">
+                        実際の波情報を取得するには、Node.jsをインストールして以下を実行してください：
+                    </p>
+                    <pre class="bg-gray-100 p-2 rounded text-xs overflow-x-auto">cd surf-spots-sea
+npm install
+npm run dev</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // モックデータ
+        const surfSpots = [
+            {
+                id: 'nongsa-beach',
+                name: 'Nongsa Beach',
+                location: { lat: 1.1667, lon: 104.1167 },
+                country: 'Indonesia',
+                island: 'Batam Island',
+                travelTime: '1 hour (ferry)',
+                description: 'シンガポールから最も近いサーフスポット',
+                waveHeight: 1.2,
+                wavePeriod: 8,
+                windSpeed: 5.5,
+                windDirection: 180,
+                temp: 28
+            },
+            {
+                id: 'trikora-beach',
+                name: 'Trikora Beach',
+                location: { lat: 1.0167, lon: 104.5333 },
+                country: 'Indonesia',
+                island: 'Bintan Island',
+                travelTime: '1.5 hours (ferry)',
+                description: '美しい白砂のビーチ',
+                waveHeight: 0.8,
+                wavePeriod: 6,
+                windSpeed: 4.2,
+                windDirection: 90,
+                temp: 29
+            },
+            {
+                id: 'desaru-beach',
+                name: 'Desaru Beach',
+                location: { lat: 1.5500, lon: 104.2500 },
+                country: 'Malaysia',
+                island: 'Johor',
+                travelTime: '2 hours (car)',
+                description: 'マレーシアの人気ビーチリゾート',
+                waveHeight: 1.5,
+                wavePeriod: 9,
+                windSpeed: 6.8,
+                windDirection: 135,
+                temp: 27
+            },
+            {
+                id: 'tioman-island',
+                name: 'Tioman Island',
+                location: { lat: 2.8167, lon: 104.1667 },
+                country: 'Malaysia',
+                island: 'Tioman Island',
+                travelTime: '3-4 hours (ferry)',
+                description: '美しい熱帯の島',
+                waveHeight: 2.0,
+                wavePeriod: 10,
+                windSpeed: 8.5,
+                windDirection: 270,
+                temp: 26
+            },
+            {
+                id: 'parai-beach',
+                name: 'Parai Beach',
+                location: { lat: -2.1333, lon: 106.1167 },
+                country: 'Indonesia',
+                island: 'Bangka Island',
+                travelTime: '2 hours (flight)',
+                description: 'バンカ島の美しいビーチ',
+                waveHeight: 1.0,
+                wavePeriod: 7,
+                windSpeed: 5.0,
+                windDirection: 45,
+                temp: 30
+            }
+        ];
+
+        // Mapbox初期化（デモ用の公開トークン）
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZXhhbXBsZSIsImEiOiJjbHh4eHh4eHgifQ.xxxxxxxxxxxxxxxxx';
+        
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/outdoors-v12',
+            center: [103.8198, 1.3521],
+            zoom: 6
+        });
+
+        // ナビゲーションコントロール
+        map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+
+        // マーカーとポップアップを追加
+        map.on('load', () => {
+            surfSpots.forEach(spot => {
+                const el = document.createElement('div');
+                el.className = 'w-10 h-10 cursor-pointer';
+                el.innerHTML = `
+                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" fill="#0ea5e9" stroke="white" stroke-width="3"/>
+                        <path d="M20 10C18.5 10 17 11.5 17 13C17 14.5 18.5 16 20 16C21.5 16 23 14.5 23 13C23 11.5 21.5 10 20 10Z" fill="white"/>
+                        <path d="M15 18C14 18 13 19 13 20C13 21 14 22 15 22C16 22 17 21 17 20C17 19 16 18 15 18Z" fill="white"/>
+                        <path d="M25 18C24 18 23 19 23 20C23 21 24 22 25 22C26 22 27 21 27 20C27 19 26 18 25 18Z" fill="white"/>
+                        <path d="M20 24C18 24 16 25 16 27C16 29 18 30 20 30C22 30 24 29 24 27C24 25 22 24 20 24Z" fill="white"/>
+                    </svg>
+                `;
+
+                const popup = new mapboxgl.Popup({ offset: 25 })
+                    .setHTML(createPopupContent(spot));
+
+                new mapboxgl.Marker(el)
+                    .setLngLat([spot.location.lon, spot.location.lat])
+                    .setPopup(popup)
+                    .addTo(map);
+            });
+        });
+
+        function createPopupContent(spot) {
+            const condition = evaluateCondition(spot.waveHeight, spot.windSpeed);
+            return `
+                <div class="popup-content p-4">
+                    <h3 class="text-lg font-bold text-blue-700 mb-1">${spot.name}</h3>
+                    <p class="text-sm text-gray-600 mb-3">${spot.island}, ${spot.country}</p>
+                    
+                    <div class="text-center py-2 rounded-lg bg-gray-50 mb-3">
+                        <div class="text-lg font-bold ${condition.color}">${condition.message}</div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-2 mb-3">
+                        <div class="bg-blue-50 rounded p-2">
+                            <div class="text-xs text-gray-600">波高</div>
+                            <div class="text-xl font-bold text-blue-700">${spot.waveHeight}m</div>
+                        </div>
+                        <div class="bg-blue-50 rounded p-2">
+                            <div class="text-xs text-gray-600">周期</div>
+                            <div class="text-xl font-bold text-blue-700">${spot.wavePeriod}s</div>
+                        </div>
+                        <div class="bg-blue-50 rounded p-2">
+                            <div class="text-xs text-gray-600">風速</div>
+                            <div class="text-xl font-bold text-blue-700">${spot.windSpeed} m/s</div>
+                        </div>
+                        <div class="bg-blue-50 rounded p-2">
+                            <div class="text-xs text-gray-600">気温</div>
+                            <div class="text-xl font-bold text-blue-700">${spot.temp}°C</div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-xs text-gray-600 border-t pt-2">
+                        <div class="flex justify-between mb-1">
+                            <span>移動時間</span>
+                            <span class="font-semibold">${spot.travelTime}</span>
+                        </div>
+                        <p class="mt-2">${spot.description}</p>
+                    </div>
+                    
+                    <div class="text-xs text-gray-500 text-center mt-2">
+                        ⚠️ デモ用のモックデータです
+                    </div>
+                </div>
+            `;
+        }
+
+        function evaluateCondition(height, windSpeed) {
+            if (height < 0.3) return { message: 'フラット', color: 'text-gray-500' };
+            if (height < 0.8) return { message: '小波 - 初心者向け', color: 'text-blue-400' };
+            if (height < 1.5) return { message: '良好 - サーフィンに最適', color: 'text-green-500' };
+            if (height < 2.5) return { message: '大波 - 中級者以上', color: 'text-orange-500' };
+            return { message: '非常に大きな波', color: 'text-red-500' };
+        }
+
+        function showInfo() {
+            document.getElementById('infoModal').classList.remove('hidden');
+        }
+
+        function hideInfo() {
+            document.getElementById('infoModal').classList.add('hidden');
+        }
+
+        // 初回表示時に情報モーダルを表示
+        setTimeout(showInfo, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Architecture Diagram - SEA Surf Spots</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #232F3E;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        #diagram {
+            background: white;
+            padding: 20px;
+            border-radius: 4px;
+        }
+        .instructions {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e7f3ff;
+            border-left: 4px solid #0073bb;
+            border-radius: 4px;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #0073bb;
+        }
+        .instructions ol {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .instructions li {
+            margin: 8px 0;
+        }
+        button {
+            background: #FF9900;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        button:hover {
+            background: #EC7211;
+        }
+        .button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏗️ AWS Architecture Diagram</h1>
+        <p class="subtitle">SEA Surf Spots - Enterprise-Grade Production Environment</p>
+        
+        <div class="button-container">
+            <button onclick="downloadSVG()">📥 Download as SVG</button>
+            <button onclick="downloadPNG()">📥 Download as PNG (High-Res)</button>
+            <button onclick="window.print()">🖨️ Print</button>
+        </div>
+
+        <div id="diagram">
+            <pre class="mermaid">
+graph TB
+    subgraph "Users"
+        U1[👤 Mobile Users]
+        U2[💻 Desktop Users]
+    end
+
+    subgraph "AWS Global Infrastructure"
+        subgraph "Edge Layer - CloudFront CDN"
+            CF[☁️ Amazon CloudFront<br/>• Global Edge Locations<br/>• SSL/TLS ACM<br/>• DDoS Protection Shield<br/>• Cache: 24h static, 10min API]
+        end
+
+        subgraph "Security Layer"
+            WAF[🛡️ AWS WAF<br/>• Rate Limiting: 100 req/min<br/>• SQL Injection Protection<br/>• XSS Protection<br/>• Geo Blocking]
+        end
+
+        subgraph "API Layer - Singapore Region"
+            APIG[🚪 API Gateway<br/>• REST API<br/>• API Key Required<br/>• Request Validation<br/>• Throttling: 1000 req/sec<br/>• CORS Whitelist]
+        end
+
+        subgraph "Compute Layer"
+            LAMBDA[⚡ AWS Lambda<br/>GetWaveData Function<br/>• Node.js 20.x<br/>• Memory: 512MB<br/>• Timeout: 30s<br/>• Provisioned: 5<br/>• Reserved: 100]
+        end
+
+        subgraph "Cache Layer"
+            REDIS[💾 ElastiCache Redis<br/>• Cluster: wave-cache<br/>• Node: t4g.micro x2<br/>• Multi-AZ<br/>• TTL: 10 minutes<br/>• Encryption: At-rest]
+        end
+
+        subgraph "Storage Layer"
+            S3[📦 Amazon S3<br/>surf-spots-web<br/>• Static Assets<br/>• Versioning: Enabled<br/>• Encryption: AES-256<br/>• Lifecycle: 90 days]
+        end
+
+        subgraph "Secrets Management"
+            SM[🔐 Secrets Manager<br/>• OpenWeather API Key<br/>• Mapbox API Key<br/>• Auto Rotation: 90 days<br/>• KMS Encryption]
+        end
+
+        subgraph "Monitoring & Observability"
+            CW[📊 CloudWatch<br/>• Metrics & Logs<br/>• Alarms<br/>• Dashboards]
+            XRAY[🔍 X-Ray<br/>• Distributed Tracing<br/>• Service Map<br/>• Sampling: 10%]
+            SNS[📧 SNS Alerts<br/>• Email<br/>• Slack<br/>• PagerDuty]
+        end
+
+        subgraph "CI/CD Pipeline"
+            CP[🔄 CodePipeline<br/>Source → Build → Test → Deploy<br/>• GitHub Integration<br/>• Manual Approval<br/>• Blue/Green Deploy]
+        end
+
+        subgraph "Security & Compliance"
+            IAM[👥 IAM Roles<br/>• Least Privilege<br/>• MFA Enabled]
+            KMS[🔑 KMS<br/>• CMK<br/>• Auto Rotation]
+            CT[📝 CloudTrail<br/>• Audit Logs<br/>• 7 years retention]
+        end
+    end
+
+    subgraph "External Services"
+        OWM[🌤️ OpenWeatherMap API<br/>• Circuit Breaker<br/>• Retry: 3 attempts<br/>• Timeout: 10s]
+        MAPBOX[🗺️ Mapbox API<br/>• Domain Restricted<br/>• URL Restricted]
+    end
+
+    U1 --> CF
+    U2 --> CF
+    CF -->|Static Content| S3
+    CF -->|API Requests| WAF
+    WAF --> APIG
+    APIG --> LAMBDA
+    LAMBDA -->|Cache Check| REDIS
+    LAMBDA -->|Cache Miss| OWM
+    LAMBDA -->|Get Secrets| SM
+    LAMBDA --> CW
+    LAMBDA --> XRAY
+    S3 --> CF
+    CW --> SNS
+    XRAY --> CW
+    CP -->|Deploy| S3
+    CP -->|Deploy| LAMBDA
+    IAM -.->|Authorize| LAMBDA
+    KMS -.->|Encrypt| S3
+    KMS -.->|Encrypt| REDIS
+    KMS -.->|Encrypt| SM
+    CT -.->|Audit| IAM
+    LAMBDA -.->|Client Request| MAPBOX
+
+    style CF fill:#FF9900,stroke:#232F3E,stroke-width:3px,color:#fff
+    style WAF fill:#DD344C,stroke:#232F3E,stroke-width:2px,color:#fff
+    style APIG fill:#FF4F8B,stroke:#232F3E,stroke-width:2px,color:#fff
+    style LAMBDA fill:#FF9900,stroke:#232F3E,stroke-width:2px,color:#fff
+    style REDIS fill:#C925D1,stroke:#232F3E,stroke-width:2px,color:#fff
+    style S3 fill:#569A31,stroke:#232F3E,stroke-width:2px,color:#fff
+    style SM fill:#DD344C,stroke:#232F3E,stroke-width:2px,color:#fff
+    style CW fill:#FF4F8B,stroke:#232F3E,stroke-width:2px,color:#fff
+    style XRAY fill:#FF4F8B,stroke:#232F3E,stroke-width:2px,color:#fff
+    style SNS fill:#FF4F8B,stroke:#232F3E,stroke-width:2px,color:#fff
+    style CP fill:#4B612C,stroke:#232F3E,stroke-width:2px,color:#fff
+    style IAM fill:#DD344C,stroke:#232F3E,stroke-width:2px,color:#fff
+    style KMS fill:#DD344C,stroke:#232F3E,stroke-width:2px,color:#fff
+    style CT fill:#759C3E,stroke:#232F3E,stroke-width:2px,color:#fff
+    style OWM fill:#0073bb,stroke:#232F3E,stroke-width:2px,color:#fff
+    style MAPBOX fill:#0073bb,stroke:#232F3E,stroke-width:2px,color:#fff
+            </pre>
+        </div>
+
+        <div class="instructions">
+            <h3>📋 使用方法</h3>
+            <ol>
+                <li><strong>SVGダウンロード</strong>: ベクター形式で、拡大しても綺麗。PowerPoint/Keynoteに最適</li>
+                <li><strong>PNGダウンロード</strong>: 高解像度ラスター画像。Word/PDF文書に最適</li>
+                <li><strong>印刷</strong>: A3サイズ推奨（横向き）</li>
+                <li><strong>編集</strong>: SVGファイルはIllustrator/Inkscapeで編集可能</li>
+            </ol>
+            <p><strong>💡 ヒント</strong>: PowerPointに貼り付け後、「図として保存」で再度PNG化すると、さらに高品質になります。</p>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+
+        function downloadSVG() {
+            const svg = document.querySelector('.mermaid svg');
+            if (!svg) {
+                alert('図が読み込まれていません。ページを再読み込みしてください。');
+                return;
+            }
+            
+            const svgData = new XMLSerializer().serializeToString(svg);
+            const blob = new Blob([svgData], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'aws-architecture-sea-surf-spots.svg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        function downloadPNG() {
+            const svg = document.querySelector('.mermaid svg');
+            if (!svg) {
+                alert('図が読み込まれていません。ページを再読み込みしてください。');
+                return;
+            }
+
+            const svgData = new XMLSerializer().serializeToString(svg);
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+
+            // 高解像度（2倍）
+            const scale = 2;
+            canvas.width = svg.getBoundingClientRect().width * scale;
+            canvas.height = svg.getBoundingClientRect().height * scale;
+            ctx.scale(scale, scale);
+
+            img.onload = function() {
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0);
+                
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'aws-architecture-sea-surf-spots.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+                });
+            };
+
+            img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+        }
+    </script>
+</body>
+</html>
