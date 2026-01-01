@@ -27,7 +27,7 @@ export function useMapbox() {
     
     const defaultOptions = {
       container: containerId,
-      style: 'mapbox://styles/mapbox/outdoors-v12',
+      style: 'mapbox://styles/mapbox/dark-v11',
       center: [103.8198, 1.3521], // シンガポールを中心に
       zoom: 6,
       pitch: 0,
